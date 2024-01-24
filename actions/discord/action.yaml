@@ -1,0 +1,20 @@
+name: "Discord"
+description: "Send message to Discord"
+
+inputs:
+  MESSAGE:
+    required: true
+    description: "Message"
+  DISCORD_WEBHOOK:
+    required: true
+    description: "Discord Webhook"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: ${{ inputs.MESSAGE }}
