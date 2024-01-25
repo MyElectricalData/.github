@@ -1,0 +1,24 @@
+name: "Discord"
+description: "Send message to Discord"
+
+on:
+  workflow_call:
+    inputs:
+      MESSAGE:
+        required: true
+        description: "Message"
+      DISCORD_WEBHOOK:
+        required: true
+        description: "Discord Webhook"
+
+jobs:
+
+  Discord:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: ${{ inputs.MESSAGE }}

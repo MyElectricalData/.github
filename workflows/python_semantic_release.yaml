@@ -12,6 +12,7 @@ jobs:
   #################################################################################################################
   # SEMANTIC RELEASE
   Semantic-Release:
+    runs-on: ubuntu-latest
     concurrency: release
     permissions:
       contents: write
