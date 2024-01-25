@@ -1,5 +1,4 @@
 name: "Docker Build & Push"
-description: "Build image docker & push it"
 
 on:
   workflow_call:
