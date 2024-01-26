@@ -7,35 +7,44 @@ on:
         required: false
         description: "Dockerfile path"
         default: "./"
+        type: string
       DOCKERFILE_NAME:
         required: false
         description: "Dockerfile filename"
         default: "Dockerfile"
+        type: string
       IMAGE_REPO:
         required: true
         description: "Image Repository"
+        type: string
       IMAGE_NAME:
         required: true
         description: "Image Name"
+        type: string
       PUSH:
         required: false
         description: "Image Name"
         default: "true"
+        type: boolean
       TAG:
         required: true
         description: "Discord Webhook"
+        type: string
       PLATFORM:
         required: false
         description: "CPU Architecture"
         default: "linux/amd64, linux/arm64, linux/arm/v6, linux/arm/v7"
+        type: string
       LATEST:
         required: false
         description: "Build Latest image"
         default: "false"
+        type: boolean
       LATEST_DEV:
         required: true
         description: "Build Latest Dev image"
         default: "false"
+        type: boolean
     secrets:
       DOCKERHUB_USERNAME:
         required: true
