@@ -13,13 +13,17 @@ on:
         description: "Dockerfile filename"
         default: "Dockerfile"
         type: string
+      IMAGE_REPO:
+        required: true
+        description: "Image repository"
+        type: string
       IMAGE_NAME:
         required: true
         description: "Image Name"
         type: string
       PUSH:
         required: false
-        description: "Image Name"
+        description: "Push on repository"
         default: true
         type: boolean
       TAG:
@@ -42,10 +46,6 @@ on:
         default: true
         type: boolean
     secrets:
-      IMAGE_REPO:
-        required: true
-      DOCKERHUB_USERNAME:
-        required: true
       DOCKERHUB_TOKEN:
         required: true
 
@@ -68,7 +68,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ inputs.IMAGE_REPO }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
 
@@ -77,16 +77,16 @@ jobs:
       - name: Build tags variable
         shell: bash
         run: |
-          IMAGE_PATH="${{ secrets.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}\n"
+          IMAGE_PATH="${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }} "
           echo "${IMAGE_PATH}"
           TAGS="${IMAGE_PATH}:${{ inputs.TAG }}"
           echo "${TAGS}"
           if [ "${{ inputs.LATEST }}" == "true" ]; then
-            TAGS="${TAGS}${IMAGE_PATH}:latest\n"
+            TAGS="${TAGS}${IMAGE_PATH}:latest "
             echo "${TAGS}"
           fi
           if [ "${{ inputs.LATEST_DEV }}" == "true" ]; then
-            TAGS="${TAGS}${IMAGE_PATH}:latest-dev\n"
+            TAGS="${TAGS}${IMAGE_PATH}:latest-dev "
             echo "${TAGS}"
           fi
           echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
