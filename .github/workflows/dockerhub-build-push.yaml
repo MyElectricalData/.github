@@ -24,7 +24,7 @@ on:
       PUSH:
         required: false
         description: "Image Name"
-        default: "true"
+        default: true
         type: boolean
       TAG:
         required: true
@@ -38,12 +38,12 @@ on:
       LATEST:
         required: false
         description: "Build Latest image"
-        default: "false"
+        default: false
         type: boolean
       LATEST_DEV:
         required: true
         description: "Build Latest Dev image"
-        default: "false"
+        default: false
         type: boolean
     secrets:
       DOCKERHUB_USERNAME:
