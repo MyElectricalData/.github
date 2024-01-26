@@ -41,7 +41,7 @@ on:
         default: false
         type: boolean
       LATEST_DEV:
-        required: true
+        required: false
         description: "Build Latest Dev image"
         default: false
         type: boolean
