@@ -77,16 +77,16 @@ jobs:
       - name: Build tags variable
         shell: bash
         run: |
-          IMAGE_PATH="${{ secrets.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}"
+          IMAGE_PATH="${{ secrets.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}\n"
           echo "${IMAGE_PATH}"
           TAGS="${IMAGE_PATH}:${{ inputs.TAG }}"
           echo "${TAGS}"
           if [ "${{ inputs.LATEST }}" == "true" ]; then
-            TAGS="${TAGS}${IMAGE_PATH}:latest "
+            TAGS="${TAGS}${IMAGE_PATH}:latest\n"
             echo "${TAGS}"
           fi
           if [ "${{ inputs.LATEST_DEV }}" == "true" ]; then
-            TAGS="${TAGS}${IMAGE_PATH}:latest-dev "
+            TAGS="${TAGS}${IMAGE_PATH}:latest-dev\n"
             echo "${TAGS}"
           fi
           echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
@@ -99,4 +99,5 @@ jobs:
           platforms: ${{ inputs.PLATFORM }}
           context: ${{ inputs.CONTEXT }}
           push: ${{ inputs.PUSH }}
-          tags: ${{ env.TAGS }}
+          tags: |
+            ${{ env.TAGS }}
