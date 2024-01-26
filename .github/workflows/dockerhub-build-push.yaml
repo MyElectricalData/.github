@@ -79,14 +79,14 @@ jobs:
         run: |
           IMAGE_PATH="${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}"
           echo "${IMAGE_PATH}"
-          TAGS="${IMAGE_PATH}:${{ inputs.TAG }} "
+          TAGS="${IMAGE_PATH}:${{ inputs.TAG }},"
           echo "${TAGS}"
           if [ "${{ inputs.LATEST }}" == "true" ]; then
-            TAGS="${TAGS}${IMAGE_PATH}:latest "
+            TAGS="${TAGS}${IMAGE_PATH}:latest,"
             echo "${TAGS}"
           fi
           if [ "${{ inputs.LATEST_DEV }}" == "true" ]; then
-            TAGS="${TAGS}${IMAGE_PATH}:latest-dev "
+            TAGS="${TAGS}${IMAGE_PATH}:latest-dev,"
             echo "${TAGS}"
           fi
           echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
