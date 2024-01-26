@@ -79,12 +79,12 @@ jobs:
       - name: Build tags variable
         shell: bash
         run: |
-          TAGS = "${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:${{ inputs.TAG }}"
+          TAGS="${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:${{ inputs.TAG }}"
           if [ "${{ inputs.LATEST }}" == true ]; then
-            TAGS = "${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest "
+            TAGS="${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest "
           fi
           if [ "${{ inputs.LATEST_DEV }}" == true ]; then
-            TAGS = "${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest-dev "
+            TAGS="${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest-dev "
           fi
           echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
 
