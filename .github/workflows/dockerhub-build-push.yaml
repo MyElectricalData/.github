@@ -3,12 +3,6 @@ name: "Docker Build & Push"
 on:
   workflow_call:
     inputs:
-      DOCKERHUB_USERNAME:
-        required: true
-        description: "Docker Hub Login"
-      DOCKERHUB_TOKEN:
-        required: true
-        description: "Docker Hub Password"
       CONTEXT:
         required: false
         description: "Dockerfile path"
@@ -42,6 +36,13 @@ on:
         required: true
         description: "Build Latest Dev image"
         default: "false"
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+        description: "Docker Hub Login"
+      DOCKERHUB_TOKEN:
+        required: true
+        description: "Docker Hub Password"
 
 jobs:
 

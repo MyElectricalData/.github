@@ -7,10 +7,10 @@ on:
       MESSAGE:
         required: true
         description: "Message"
+    secrets:
       DISCORD_WEBHOOK:
         required: true
         description: "Discord Webhook"
-
 jobs:
 
   Discord:
@@ -18,7 +18,7 @@ jobs:
     steps:
     - name: Discord notification
       env:
-        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
         args: ${{ inputs.MESSAGE }}
