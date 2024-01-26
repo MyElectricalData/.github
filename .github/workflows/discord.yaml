@@ -10,7 +10,6 @@ on:
     secrets:
       DISCORD_WEBHOOK:
         required: true
-        description: "Discord Webhook"
 jobs:
 
   Discord:

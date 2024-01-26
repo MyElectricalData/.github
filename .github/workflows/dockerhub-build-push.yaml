@@ -39,10 +39,8 @@ on:
     secrets:
       DOCKERHUB_USERNAME:
         required: true
-        description: "Docker Hub Login"
       DOCKERHUB_TOKEN:
         required: true
-        description: "Docker Hub Password"
 
 jobs:
 
