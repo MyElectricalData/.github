@@ -13,10 +13,6 @@ on:
         description: "Dockerfile filename"
         default: "Dockerfile"
         type: string
-      IMAGE_REPO:
-        required: true
-        description: "Image Repository"
-        type: string
       IMAGE_NAME:
         required: true
         description: "Image Name"
@@ -43,9 +39,11 @@ on:
       LATEST_DEV:
         required: false
         description: "Build Latest Dev image"
-        default: false
+        default: true
         type: boolean
     secrets:
+      IMAGE_REPO:
+        required: true
       DOCKERHUB_USERNAME:
         required: true
       DOCKERHUB_TOKEN:
@@ -79,15 +77,15 @@ jobs:
       - name: Build tags variable
         shell: bash
         run: |
-          IMAGE_PATH="${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}"
-          echo "${IMAGE_PATH}
+          IMAGE_PATH="${{ secrets.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}"
+          echo "${IMAGE_PATH}"
           TAGS="${IMAGE_PATH}:${{ inputs.TAG }}"
           echo "${TAGS}"
-          if [ "${{ inputs.LATEST }}" == true ]; then
+          if [ "${{ inputs.LATEST }}" == "true" ]; then
             TAGS="${TAGS}${IMAGE_PATH}:latest "
             echo "${TAGS}"
           fi
-          if [ "${{ inputs.LATEST_DEV }}" == true ]; then
+          if [ "${{ inputs.LATEST_DEV }}" == "true" ]; then
             TAGS="${TAGS}${IMAGE_PATH}:latest-dev "
             echo "${TAGS}"
           fi
