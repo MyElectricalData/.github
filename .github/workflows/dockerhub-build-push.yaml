@@ -80,13 +80,17 @@ jobs:
         shell: bash
         run: |
           TAGS="${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:${{ inputs.TAG }}"
+          echo "${TAGS}"
           if [ "${{ inputs.LATEST }}" == true ]; then
             TAGS="${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest "
+            echo "${TAGS}"
           fi
           if [ "${{ inputs.LATEST_DEV }}" == true ]; then
             TAGS="${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest-dev "
+            echo "${TAGS}"
           fi
           echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
+          echo "${TAGS}"
 
       - name: Build and push ${{ inputs.VERSION }} / latest-dev
         uses: docker/build-push-action@v5
