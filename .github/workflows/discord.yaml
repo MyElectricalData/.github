@@ -1,5 +1,4 @@
 name: "Discord"
-description: "Send message to Discord"
 
 on:
   workflow_call:
