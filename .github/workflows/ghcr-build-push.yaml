@@ -73,7 +73,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io/MyElectricalData
-          username: ${{ input.USERNAME }}
+          username: ${{ inputs.USERNAME }}
           password: ${{ inputs.GH_TOKEN }}
 
 
