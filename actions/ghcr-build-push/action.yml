@@ -1,0 +1,84 @@
+name: "Docker Build & Push"
+description: "Build image docker & push it"
+
+inputs:
+  USERNAME:
+    required: true
+    description: "Github Login"
+  GITHUB_TOKEN:
+    required: true
+    description: "Github Token"
+  CONTEXT:
+    required: false
+    description: "Dockerfile path"
+    default: "./"
+  DOCKERFILE_NAME:
+    required: false
+    description: "Dockerfile filename"
+    default: "Dockerfile"
+  IMAGE_REPO:
+    required: true
+    description: "Image Repository"
+  IMAGE_NAME:
+    required: true
+    description: "Image Name"
+  PUSH:
+    required: false
+    description: "Image Name"
+    default: "true"
+  TAG:
+    required: true
+    description: "Discord Webhook"
+  PLATFORM:
+    required: false
+    description: "CPU Architecture"
+    default: "linux/amd64, linux/arm64, linux/arm/v6, linux/arm/v7"
+  LATEST:
+    required: false
+    description: "Build Latest image"
+    default: "false"
+  LATEST_DEV:
+    required: true
+    description: "Build Latest Dev image"
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io/MyElectricalData
+          username: ${{ input.USERNAME }}
+          password: ${{ inputs.GITHUB_TOKEN }}
+
+      #################################################################################################################
+      # VERSION
+      - name: Build tags variable
+        shell: bash
+        run: |
+          TAGS = "${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:${{ inputs.TAG }}"
+          if [ "${{ inputs.LATEST }}" == true ]; then
+            TAGS = "${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest "
+          fi
+          if [ "${{ inputs.LATEST_DEV }}" == true ]; then
+            TAGS = "${TAGS}${{ inputs.IMAGE_REPO }}/${{ inputs.IMAGE_NAME }}:latest-dev "
+          fi
+          echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
+
+      #################################################################################################################
+      # BUILD PUSH
+      - name: Build and push ${{ inputs.VERSION }} / latest-dev
+        uses: docker/build-push-action@v5
+        with:
+          file: ${{ inputs.DOCKERFILE_NAME }}
+          platforms: ${{ inputs.PLATFORM }}
+          context: ${{ inputs.CONTEXT }}
+          push: ${{ inputs.PUSH }}
+          tags: ${{ env.TAGS }}
