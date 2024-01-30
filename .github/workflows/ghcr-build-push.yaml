@@ -50,7 +50,7 @@ on:
         default: true
         type: boolean
     secrets:
-      GITHUB_TOKEN:
+      GH_TOKEN:
         required: true
 
 jobs:
@@ -74,7 +74,7 @@ jobs:
         with:
           registry: ghcr.io/MyElectricalData
           username: ${{ input.USERNAME }}
-          password: ${{ inputs.GITHUB_TOKEN }}
+          password: ${{ inputs.GH_TOKEN }}
 
 
       #################################################################################################################
