@@ -2,6 +2,10 @@ name: "Python Semantic Release"
 
 on:
   workflow_call:
+    inputs:
+      PRE_RELEASE:
+        required: false
+        type: boolean
 
 jobs:
 
@@ -20,11 +24,23 @@ jobs:
 
       #################################################################################################################
       # GENERATE RELEASE
-      - run: git checkout $GITHUB_HEAD_REF
+      - run: git checkout $GITHUB_HEAD_REF      
       - name: Release
+        if: ${{ inputs.PRE_RELEASE == 'true' }}
         uses: python-semantic-release/python-semantic-release@v8.7.0
         with:
          directory: ./
          github_token: ${{ secrets.GITHUB_TOKEN }}
          push: true
 #         root_options: -vv
+         prerelease: ${{ inputs.PRE_RELEASE }}
+
+      - name: Release
+        if: ${{ inputs.PRE_RELEASE == 'false' }}
+        uses: python-semantic-release/python-semantic-release@v8.7.0
+        with:
+         directory: ./
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         push: true
+#         root_options: -vv
+
