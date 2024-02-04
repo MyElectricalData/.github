@@ -26,7 +26,7 @@ jobs:
       # GENERATE RELEASE
       - run: git checkout $GITHUB_HEAD_REF      
       - name: Release
-        if: ${{ inputs.PRE_RELEASE == 'true' }}
+        if: github.event.inputs.PRE_RELEASE != ''
         uses: python-semantic-release/python-semantic-release@v8.7.0
         with:
          directory: ./
@@ -36,7 +36,7 @@ jobs:
          prerelease: ${{ inputs.PRE_RELEASE }}
 
       - name: Release
-        if: ${{ inputs.PRE_RELEASE == 'false' }}
+        if: github.event.inputs.PRE_RELEASE == ''
         uses: python-semantic-release/python-semantic-release@v8.7.0
         with:
          directory: ./
