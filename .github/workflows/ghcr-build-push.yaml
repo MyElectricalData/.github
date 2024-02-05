@@ -93,6 +93,9 @@ jobs:
           echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
           echo "Build : ${TAGS}"
 
+      - name: Generate requirements
+        run: make generate-dependencies
+
       - name: Build and push ${{ inputs.VERSION }} / latest-dev
         uses: docker/build-push-action@v5
         with:
