@@ -20,7 +20,7 @@ jobs:
 
       #################################################################################################################
       # GENERATE RELEASE
-      - run: git checkout $GITHUB_HEAD_REF      
+      # - run: git checkout $GITHUB_HEAD_REF      
       - name: Release
         uses: python-semantic-release/python-semantic-release@v8.7.0
         with:
