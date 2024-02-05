@@ -71,6 +71,14 @@ jobs:
           username: ${{ inputs.IMAGE_REPO }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      #################################################################################################################
+      # INIT ENVIRONNEMENT
+      - name: Install ASDF & tools
+        uses: asdf-vm/actions/setup@v3
+      - name: Install Minimum Requirement (Poetry, ...)
+        run: |
+          make install-github 
+          make generate-dependencies  
 
       #################################################################################################################
       # VERSION

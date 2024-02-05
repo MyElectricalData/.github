@@ -76,6 +76,14 @@ jobs:
           username: ${{ inputs.USERNAME }}
           password: ${{ secrets.GH_TOKEN }}
 
+      #################################################################################################################
+      # INIT ENVIRONNEMENT
+      - name: Install ASDF & tools
+        uses: asdf-vm/actions/setup@v3
+      - name: Install Minimum Requirement (Poetry, ...)
+        run: |
+          make install-github 
+          make generate-dependencies  
 
       #################################################################################################################
       # VERSION
@@ -91,12 +99,7 @@ jobs:
             TAGS="${TAGS}${IMAGE_PATH}:latest-dev,"
           fi
           echo "TAGS=${TAGS}" >> "$GITHUB_ENV"
-          echo "Build : ${TAGS}"
-
-      - name: Generate requirements
-        run: |
-          make install-github
-          make generate-dependencies          
+          echo "Build : ${TAGS}"     
 
       - name: Build and push ${{ inputs.VERSION }} / latest-dev
         uses: docker/build-push-action@v5
