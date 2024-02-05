@@ -94,7 +94,9 @@ jobs:
           echo "Build : ${TAGS}"
 
       - name: Generate requirements
-        run: make generate-dependencies
+        run: |
+          make install-github
+          make generate-dependencies          
 
       - name: Build and push ${{ inputs.VERSION }} / latest-dev
         uses: docker/build-push-action@v5
